@@ -15,4 +15,8 @@ class Units(Resource):
         unit.create()
         return unit.json(), 201
     
-    
+class UnitDetail(Resource):
+    def get(self, unit_id):
+        unit = Unit.query.options(joinedload(Unit.building)).filter_by(id=unit_id).first()
+        # units = [u.json() for u in building.units]
+        return {**unit.json(), 'building': unit.building.json()}
