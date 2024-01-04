@@ -7,6 +7,7 @@ from models.user import User
 from models.unit import Unit
 from models.building import Building
 
+from resources import user, building, unit
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,6 +18,11 @@ app.config['SQLALCHEMY_ECHO'] = True # Set to false for prod
 
 db.init_app(app)
 migrate = Migrate(app, db)
+
+api.add_resource(user.Users, '/users')
+api.add_resource(building.Buildings, '/buildings')
+api.add_resource(building.BuildingDetail, '/buildings/<int:building_id>')
+api.add_resource(unit.Units, '/units')
 
 if __name__ == '__main__':
     app.run(debug=True)

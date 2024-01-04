@@ -18,3 +18,29 @@ class User(db.Model):
         self.name = name
         self.email = email
         self.password_digest = password_digest
+
+    # Queries
+    # View JSON data
+    def json(self):
+        return {"id": self.id,
+                "name": self.name,
+                "email": self.email,
+                "password_digest": self.password_digest,
+                "created_at": str(self.created_at),
+                "updated_at": str(self.updated_at)}
+    
+    # Create user
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+    
+    # Find all users
+    @classmethod
+    def find_all(cls):
+        return User.query.all()
+    
+    # Find user by id
+    @classmethod
+    def find_by_id(cls, id):
+        return db.get_or_404(cls, id, description=f'Record with id:{id} is not available')
