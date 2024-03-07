@@ -18,6 +18,18 @@ class RentStab(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, onupdate=datetime.now())
 
+    # Constructor
+    def __init__(self, ucbbl, uc2018, pdfsoa2018, uc2019, pdfsoa2019, uc2020, pdfsoa2020, uc2021, pdfsoa2021):
+        self.ucbbl = ucbbl
+        self.uc2018 = uc2018
+        self.pdfsoa2018 = pdfsoa2018
+        self.uc2019 = uc2019
+        self.pdfsoa2019 = pdfsoa2019
+        self.uc2020 = uc2020
+        self.pdfsoa2020 = pdfsoa2020
+        self.uc2021 = uc2021
+        self.pdfsoa2021 = pdfsoa2021
+
     # Queries
     # View JSON data
     def json(self):
