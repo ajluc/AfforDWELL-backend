@@ -9,24 +9,24 @@ def import_csv(csv_file):
             reader = csv.reader(file)
             next(reader)  # Skip the header row
 
-            row_counter = 0  # Initialize a counter for rows
+            # row_counter = 0  # Initialize a counter for rows
             for row in reader:
-                if row_counter < 5:  # Process only the first 5 rows
-                    processed_row = []
-                    for item in row:
-                        processed_row.append(None if item == "NA" else item)
+                # if row_counter < 10:  # Process only the first 10 rows
+                processed_row = []
+                for item in row:
+                    processed_row.append(None if item == "NA" else item)
 
-                    # Convert bbl columns to integer
-                    if processed_row[0] is not None:
-                        processed_row[0] = int(processed_row[0])
+                # Convert bbl columns to integer
+                if processed_row[0] is not None:
+                    processed_row[0] = int(processed_row[0])
 
-                    # Create a new RentStab object with processed row data
-                    rent_stab_entry = RentStab(*processed_row)
-                    db.session.add(rent_stab_entry)
+                # Create a new RentStab object with processed row data
+                rent_stab_entry = RentStab(*processed_row)
+                db.session.add(rent_stab_entry)
 
-                    row_counter += 1  # Increment the row counter
-                else:
-                    break  # Stop processing after 5 rows
+                #     row_counter += 1  # Increment the row counter
+                # else:
+                #     break  # Stop processing after 5 rows
 
             db.session.commit()
 

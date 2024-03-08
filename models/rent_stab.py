@@ -6,7 +6,7 @@ class RentStab(db.Model):
     __tablename__ = 'rent_stab'
     # Set columns in table
     id = db.Column(db.Integer, primary_key=True)
-    ucbbl = db.Column(db.Integer)
+    ucbbl = db.Column(db.BigInteger)
     uc2018 = db.Column(db.Integer)
     pdfsoa2018 = db.Column(db.String(255))
     uc2019 = db.Column(db.Integer)
