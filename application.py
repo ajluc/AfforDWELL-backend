@@ -8,7 +8,7 @@ from models.unit import Unit
 from models.building import Building
 from models.rent_stab import RentStab
 
-from resources import user, building, unit
+from resources import user, building, unit, rent_stab
 
 application = Flask(__name__)
 # @application.route("/")
@@ -23,6 +23,8 @@ application.config['SQLALCHEMY_ECHO'] = True # Set to false for prod
 db.init_app(application)
 migrate = Migrate(application, db)
 
+api.add_resource(rent_stab.RentStabs, '/rentstabs')
+api.add_resource(rent_stab.RentStabDetails, '/rentstabs/<int:bbl>')
 api.add_resource(user.Users, '/users')
 api.add_resource(building.Buildings, '/buildings')
 api.add_resource(building.BuildingDetail, '/buildings/<int:building_id>')

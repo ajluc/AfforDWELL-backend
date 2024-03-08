@@ -45,3 +45,27 @@ class RentStab(db.Model):
                 "pdfsoa2021": self.pdfsoa2021,
                 "created_at": str(self.created_at),
                 "updated_at": str(self.updated_at)}
+    
+    # Find all RS Units
+    @classmethod
+    def find_all(cls):
+        return RentStab.query.all()
+    
+    # Find by id
+    @classmethod
+    def find_by_id(cls, id):
+        return db.get_or_404(cls, id, description=f'Record with id: {id} is not available')
+    
+    # Find by BBL
+    @classmethod
+    def find_by_bbl(cls, ucbbl):
+        rent_stab = RentStab.query.filter_by(ucbbl=ucbbl).first()
+        return rent_stab
+    
+    # Delete by BBL
+    @classmethod
+    def delete(cls, ucbbl):
+        rent_stab = RentStab.query.filter_by(ucbbl=ucbbl).first()
+        db.session.delete(rent_stab)
+        db.session.commit()
+        return 'Record deleted'
