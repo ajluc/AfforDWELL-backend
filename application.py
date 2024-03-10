@@ -7,6 +7,7 @@ from models.user import User
 from models.unit import Unit
 from models.building import Building
 from models.rent_stab import RentStab
+from models.pluto import PLUTO
 
 from resources import user, building, unit, rent_stab
 
