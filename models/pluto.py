@@ -11,7 +11,7 @@ class PLUTO(db.Model):
     unitsres = db.Column(db.String(255))
     unitstotal = db.Column(db.String(255))
     yearbuilt = db.Column(db.String(255))
-    bbl = db.Column(db.Integer)
+    bbl = db.Column(db.BigInteger)
     latitude = db.Column(db.String(255))
     longitude = db.Column(db.String(255))
     version = db.Column(db.String(255))
