@@ -6,7 +6,7 @@ class RentStab(db.Model):
     __tablename__ = 'rent_stab'
     # Set columns in table
     id = db.Column(db.Integer, primary_key=True)
-    ucbbl = db.Column(db.BigInteger)
+    ucbbl = db.Column(db.BigInteger, db.ForeignKey('pluto_info.bbl')) # Foreign key for relation to PLUTO table
     uc2018 = db.Column(db.Integer)
     pdfsoa2018 = db.Column(db.String(255))
     uc2019 = db.Column(db.Integer)
@@ -17,6 +17,8 @@ class RentStab(db.Model):
     pdfsoa2021 = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, onupdate=datetime.now())
+    # Define relationships
+    pluto = db.relationship('PLUTO', backref='rent_stab')
 
     # Constructor
     def __init__(self, ucbbl, uc2018, pdfsoa2018, uc2019, pdfsoa2019, uc2020, pdfsoa2020, uc2021, pdfsoa2021):

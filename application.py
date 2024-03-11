@@ -9,7 +9,7 @@ from models.building import Building
 from models.rent_stab import RentStab
 from models.pluto import PLUTO
 
-from resources import user, building, unit, rent_stab
+from resources import user, building, unit, rent_stab, pluto
 
 application = Flask(__name__)
 # @application.route("/")
@@ -26,6 +26,7 @@ migrate = Migrate(application, db)
 
 api.add_resource(rent_stab.RentStabs, '/rentstabs')
 api.add_resource(rent_stab.RentStabDetails, '/rentstabs/<int:bbl>')
+api.add_resource(pluto.PLUTODetails, '/plutos/<int:bbl>')
 api.add_resource(user.Users, '/users')
 api.add_resource(building.Buildings, '/buildings')
 api.add_resource(building.BuildingDetail, '/buildings/<int:building_id>')

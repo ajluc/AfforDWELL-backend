@@ -11,7 +11,7 @@ class PLUTO(db.Model):
     unitsres = db.Column(db.String(255))
     unitstotal = db.Column(db.String(255))
     yearbuilt = db.Column(db.String(255))
-    bbl = db.Column(db.BigInteger)
+    bbl = db.Column(db.BigInteger, unique=True)
     latitude = db.Column(db.String(255))
     longitude = db.Column(db.String(255))
     version = db.Column(db.String(255))
@@ -32,5 +32,23 @@ class PLUTO(db.Model):
     
     # Queries
     # View JSON data
-    def to_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+    def json(self):
+        # return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {"id": self.id,
+                "zipcode": self.zipcode,
+                "address": self.address,
+                "unitsres": self.unitsres,
+                "unitstotal": self.unitstotal,
+                "yearbuilt": self.yearbuilt,
+                "bbl": self.bbl,
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "version": self.version,
+                "created_at": str(self.created_at),
+                "updated_at": str(self.updated_at)}
+    
+    # Find by BBL
+    @classmethod
+    def find_by_bbl(cls, bbl):
+        pluto = PLUTO.query.filter_by(bbl=bbl).first()
+        return pluto
