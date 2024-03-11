@@ -7,5 +7,8 @@ from sqlalchemy.orm import joinedload
 class PLUTODetails(Resource):
     def get(self, bbl):
         data = PLUTO.find_by_bbl(bbl)
-        result = data.json()
-        return result
+        if data:
+            result = data.json()
+            return result
+        else:
+            return {'message': 'Entry not found'}, 404

@@ -1,4 +1,5 @@
 from models.db import db
+from models.pluto import PLUTO
 from datetime import datetime
 
 class RentStab(db.Model):
@@ -6,7 +7,7 @@ class RentStab(db.Model):
     __tablename__ = 'rent_stab'
     # Set columns in table
     id = db.Column(db.Integer, primary_key=True)
-    ucbbl = db.Column(db.BigInteger, db.ForeignKey('pluto_info.bbl')) # Foreign key for relation to PLUTO table
+    ucbbl = db.Column(db.BigInteger)
     uc2018 = db.Column(db.Integer)
     pdfsoa2018 = db.Column(db.String(255))
     uc2019 = db.Column(db.Integer)
@@ -17,8 +18,6 @@ class RentStab(db.Model):
     pdfsoa2021 = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, onupdate=datetime.now())
-    # Define relationships
-    pluto = db.relationship('PLUTO', backref='rent_stab')
 
     # Constructor
     def __init__(self, ucbbl, uc2018, pdfsoa2018, uc2019, pdfsoa2019, uc2020, pdfsoa2020, uc2021, pdfsoa2021):
@@ -52,6 +51,8 @@ class RentStab(db.Model):
     @classmethod
     def find_all(cls):
         return RentStab.query.all()
+        # return db.session.query(cls, PLUTO).outerjoin(PLUTO, cls.ucbbl == PLUTO.bbl).all()
+
     
     # Find by id
     @classmethod
@@ -63,6 +64,7 @@ class RentStab(db.Model):
     def find_by_bbl(cls, ucbbl):
         rent_stab = RentStab.query.filter_by(ucbbl=ucbbl).first()
         return rent_stab
+        # return db.session.query(cls, PLUTO).outerjoin(PLUTO, cls.ucbbl == PLUTO.bbl).filter(cls.ucbbl == ucbbl).first()
     
     # Delete by BBL
     @classmethod
